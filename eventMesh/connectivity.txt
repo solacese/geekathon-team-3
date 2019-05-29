@@ -1,0 +1,50 @@
+
+Geekfest 2019 router/eventMesh details and credentials
+
+AWS - Tokyo, Japan:
+https://ec2-52-195-11-219.ap-northeast-1.compute.amazonaws.com:943
+http://ec2-52-195-11-219.ap-northeast-1.compute.amazonaws.com:8080
+router aws-apac
+
+GCE - St. Ghislain, Belgium:
+https://35.210.75.228:943
+http://35.210.75.228:8080
+router gcevmr
+
+Azure - Amsterdam, Netherlands:
+https://azurevmr.westeurope.cloudapp.azure.com:943
+http://azurevmr.westeurope.cloudapp.azure.com:8080
+router 204770af3510
+
+On-Prem - London, United Kingdom:
+http://london.solace.com:1890
+https://london.solace.com:1883
+router london-lab-eventMesh
+
+Clients:
+User geekfest2019
+Pass geekfest!!
+
+Monitor User:
+User: psbmonitor
+password psbmonitor++
+
+PubSub+ Monitor:
+http://ec2-13-238-218-91.ap-southeast-2.compute.amazonaws.com:8068/rtview-solmon/#/solmon/sol_overview.html
+rtvadmin/rtvadmin
+
+
+Ports (All set to defaults):
+semp			8080 (1890 for onprem)
+semp tls		943 (1883 for onprem)
+http			80 (1880 for onprem)
+https			443 (9130 for onprem)
+SMF 			55555 (9082 for onprem)
+SMF TLS 		55443 (15001 for onprem)
+SMF Comp		55003
+REST			9000
+REST TLS		9443
+MQTT			1883
+MQTT TLS		8883
+MQTT Socket 	8000
+MQTT Sock TLS	8443
