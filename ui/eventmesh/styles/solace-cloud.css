@@ -1,0 +1,189 @@
+$background-color:    #FFFFFF;
+$banner-color:        #474747;
+$border-top-color:    #606060;
+$delete-tag-color:    #e0e0e0;
+$field-shadow-color:  rgba(0, 0, 0, 0.15);
+$format-select-color: #c0c0c0;
+$label-color:         #595959;
+$radio-color:         #7b7c7d;
+$title-color:         #FFFFFF;
+
+$font-stack:          'Rubik', sans-serif;
+$font-weight-normal:  normal;
+
+html {
+  background-color: $background-color;
+  height: 100%;
+}
+
+.title, 
+.control, 
+.field, 
+.tabs, 
+.input,
+.textarea,
+.radio {
+  font-family: $font-stack;
+  font-weight: $font-weight-normal;
+}
+
+.banner {
+  margin: -2em -2em 0em -2em;
+  padding: 1em 1em 0em 1em;
+  background-color: $banner-color;  
+}
+
+.title {
+  height: 50px;
+  font-size: 1.8em;
+  color: $title-color;
+}
+
+body {
+  padding: 2em;
+}
+
+.label {
+  color: $label-color;
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+
+.input,
+.textarea {
+  font-size: 20px;
+  font-weight: 300;
+  box-shadow: 0 1px 1px $field-shadow-color;
+}
+
+label.radio {
+  font-size: 15px;
+  line-height: 25px;
+  color: $radio-color;
+}
+
+[v-cloak] {
+  display: none;
+}
+
+#vue-loading {
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 100%;
+  height: 150px;
+}
+
+#tab-session, #tab-publish {
+  margin-left: 50px;
+}
+
+.steps {
+  display: flex;
+  position: relative;
+  margin: auto 0;
+  height: 40px;
+  margin-bottom: 5px;
+  
+  .number-box {
+    width: 30px;
+    height: 30px;
+    color: white;
+    background: #474747;
+    text-align: center;
+    margin: auto 20px auto 0;
+    padding-top: 3px;
+    border-radius: 5px;
+  }
+  .header {
+    margin: auto 0;
+    font-size: 18px;
+    color: rgba(0, 0, 0, 0.65);
+    font-weight: 500;
+    flex: 1;
+  }
+}
+
+form {
+  .buttons {
+    margin-top: 15px;
+    margin-bottom: 5px;
+    position: relative;
+    .advanced {
+      position: absolute;
+      right: 0;
+      color: #00ad93;
+      bottom: 15px;
+    }
+    .fa-spinner {
+      color: #00ad93;
+    }
+  }
+  .is-primary {
+    background: #00ad93;
+  }
+  input.subscribe {
+    font-size: 16px;
+  }
+}
+
+.fade-enter, 
+.fade-leave-active {
+  opacity: 0;
+}
+
+.fade-enter-active, 
+.fade-leave-active {
+  transition: opacity .5s;
+}
+
+.status {
+  margin-top: 2em;
+}
+
+.session-status {
+  padding-right : 12px;
+  font-size: 1em;
+  &.fa-unlink {
+    color: red;
+  }
+  &.fa-link {
+    color: green;
+  }
+}
+
+.tag.is-delete {
+  background-color: $delete-tag-color;
+}
+
+.status {
+  margin-top: 2em;
+  .message-header {
+    background: #00ad93 !important;
+  }
+}
+
+.session-status {
+  padding-right : 12px;
+  font-size: 1em;
+  &.fa-unlink {
+    color: red;
+  }
+  &.fa-link {
+    color: green;
+  }
+}
+
+.messages {
+  border-top: 1px solid $border-top-color;
+  .message {
+    margin-top: 1em;
+    width: 100%;
+  };
+  .message-format {
+    padding: 1em;
+    background-color: $format-select-color;
+  }
+}
+

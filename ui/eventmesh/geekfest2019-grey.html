@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<head>
+  <!-- Christian.Holtfurth@Solace.com -->
+  <title>Event Mesh Visualisation</title>
+  <meta property="og:title" content="Event Mesh Visualisation" />
+  <meta property="og:description" content="Want to pimp your ride and see how your order events are flowing over the data highway?" />
+  <meta property="og:url" content="http://london.solace.com/eventmesh/geekfest2019.html" />
+  <meta property="og:image" content="http://london.solace.com/eventmesh/images/world-grey.jpg" />
+  <meta name="Description" content="Pimp Your Ride - Data Highway View">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge;" />
+  <meta charset="utf-8"/>
+
+  <!--<meta name="viewport" content="width=870, initial-scale=1">-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" type="text/css" media="all" href="styles/reset.css" /> <!-- reset css -->
+  <link rel="stylesheet" type="text/css" media="all" href="styles/pure.css" />
+  <link rel="stylesheet" type="text/css" media="all" href="styles/event-mesh.css" />
+  <script type="text/javascript" src="./lib/solclient.js"></script>
+  <script src="config/config-gf.js"></script>
+  <script src="config/credentials-gf.js"></script>
+  <script src="scripts/RateReporter.js"></script>
+  <script src="scripts/visualise-gf.js"></script>
+  <!-- script src="scripts/visualise-clients.js"></script -->
+
+  <title>Event Mesh Visualisation</Title>
+  <style>
+    /* Keep these styles here to be able to adjust the size of the graphic easily */
+    /* !! Should match the size of the dynamic & dynamic2 canvas below !! */
+    #inner {
+      margin: auto;
+      position: absolute;
+        top: 40px;
+         right: 0;
+         bottom: 0;
+         left: 0;
+         width: 1920px;
+         height: 870px;
+    }
+    .canvas {
+      position: absolute;
+      margin: auto;
+      width: 1920px;
+      height: 870px;
+    }
+  </style>
+  <script>
+  var resizer = 0.8;
+  </script>
+</HEAD>
+<Body onload="initMeshReporter()">
+  <!-- used to prompt selection of client certificate for https websocket connections -->
+  <div class="banner" style="solid 1px #8c9199;">
+       <div class="banner-interior">
+           <span class="banner-logo">
+             <a href="http://solace.com/" target="_blank">
+               <img src="images/solace-logo-green.png" alt="Solace Logo"/>
+             </a>
+           </span>
+         <div class="banner-heading">
+           <h1>Event Mesh Visualisation: Pimp Your Ride - Data Highway View</h1>
+         </div>
+       </div>
+   </div>
+   <div id="header" class="doc-header">
+   </div>
+
+  <div id="outer" class="column left-pane ">
+    <div id="inner" class=" frame ">
+      <img id="map" src="images/world-grey.jpg" class="canvas ">
+      <canvas id="dynamic" class="canvas" width="1920px" height="870px">Sorry, not supported!</canvas>
+      <canvas id="dynamic2" class="canvas" width="1920px" height="870px">Sorry, not supported!</canvas>
+      <div id="leftcloud"></div>
+      <div id="middlecloud"></div>
+      <div id="rightcloud"></div>
+      <div id="onprem"></div>
+      <div id="controls">
+        <!-- Insert control panel here -->
+      </div>
+      <script src="scripts/place-cloud-icons-gf.js"></script>
+    </div>
+  </div>
+  <iframe id="iframe1" src="" onload="" hidden></iframe>
+  <iframe id="iframe2" src="" onload="" hidden></iframe>
+  <iframe id="iframe3" src="" onload="" hidden></iframe>
+  <iframe id="iframe4" src="" onload="" hidden></iframe>
+</Body>

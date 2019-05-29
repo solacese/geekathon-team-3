@@ -1,0 +1,240 @@
+/* for debugging/design */
+/* div {
+   border:solid 1px #8c9199;
+} */
+html, body {
+  height: 90%;
+}
+/* Setup the h element sizes since all browser inherited CSS has been reset... */
+h1 {
+	display: block;
+    font-size: 2em;
+    font-weight: bold;
+}
+h2 {
+	display: block;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+h3 {
+	display: block;
+    font-size: 1.17em;
+	line-height: 1.5;
+    font-weight: bold;
+	margin-bottom:10px;
+}
+
+h4 {
+	display: block;
+    font-size: 1em;
+    font-weight: bold;
+	color:	grey;
+
+}
+
+h5 {
+	display: block;
+    font-size: 0.83em;
+    font-weight: bold;
+}
+
+h5 {
+	display: block;
+    font-size: 0.67em;
+    font-weight: bold;
+}
+
+
+p {
+	color:			  grey;
+	margin-bottom:	10px;
+}
+
+label {
+    margin-right:     15px;
+}
+
+textarea {
+  resize: none;
+  overflow:hidden;
+  border:solid 2px #8c9199;
+  text-align:center;
+  background-color:white;
+  color:#7f7f7f;
+  position: relative;
+  z-index: 200;
+
+}
+.outframe {
+	border: 0px solid lightblue;
+}
+.frame {
+	border: 0px solid green;
+}
+#outer {
+  position: relative;
+  width: 95%;
+  height: 99%;
+  padding: 30px;
+}
+img.canvas {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* control the max width of the doc contents */
+.doc-header {
+    padding:	5px;
+    width:		99%;
+	max-width:	1200px;
+	min-width:	355px;
+    margin:		auto;
+    color:		#3d3d3d;
+	position:	relative;
+	line-height: 150%;
+}
+.doc-body {
+    padding:	0px;
+    width:		100%;
+	max-width:	1200px;
+	min-width:	355px;
+  color:		#3d3d3d;
+	position:	relative;
+	background-color: #f2f2f2;
+	border:		4px solid #00c895;
+}
+
+.doc-footer {
+	padding: 	5px;
+	min-width:	355px;
+  color:		#3d3d3d;
+	position:	relative;
+	border:		4px solid grey;
+	line-height: 1.5;
+}
+/* Whatever iframe its been used in, do not go to the edge and trigger scrollbars */
+.doc-body-embedded {
+  padding:	0px;
+  width:		99%;
+	min-width:	355px;
+  color:		#3d3d3d;
+	position:	relative;
+	background-color: #f2f2f2;
+	border:		4px solid #00c895;
+}
+.doc-width {
+	padding:	0px;
+  width:		99%;
+	max-width:	1200px;
+	margin: 0 auto;
+}
+/* Banner definitions */
+.banner {
+    color:            white;
+    background-color: #474747;
+    padding:          1px;
+}
+.banner-interior {
+}
+.banner-heading {
+    font-weight:      bold;
+    font-size:        90%;
+    margin:           5px 10px -10px 15px;
+    display:          inline-block;
+    vertical-align:   top;
+}
+.banner-footer {
+    font-weight:      bold;
+    font-size:        100%;
+    display:          inline-block;
+	  position:			    absolute;
+    vertical-align:   top;
+  	overflow:		      hidden;
+  	height:			      20px;
+  	width:			      100%;
+  	background-color: #474747;
+  	border:			      none;
+  	padding:          0;
+  	margin:	          0;
+}
+.banner-logo img {
+    width:            103px;
+    height:           30px;
+    margin-left:      10px;
+	  margin-top:		    20px;
+}
+/* divs for row and column behaviour */
+.column {
+    float: left;
+    padding: 0px;
+	position: relative;
+}
+
+.left {
+	width: 25%;
+	height:	100%;
+	padding: 0px;
+	margin: 0px;
+	position: relative;
+}
+
+.right {
+  width: 74%;
+  padding: 0px;
+  margin: 0px;
+  position: relative;
+}
+
+.left-pane {
+	width: 70%;
+	padding: 0px;
+	margin: 0px;
+	position: relative;
+
+}
+
+.right-pane {
+	padding: 0px;
+	line-height: 150%;
+	position: relative;
+	float: right;
+	width: 28%;
+}
+
+.links-box {
+	position: relative;
+    border:4px solid grey;
+	padding:	5px;
+	height: 20%;
+}
+
+.right-pane p {
+
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.row {
+  margin:	0px;
+  padding:	0px;
+}
+
+.mrow {
+  height: 100%;
+  overflow: hidden;
+  margin:	0px;
+  padding:	0px;
+}
+
+@media (max-width: 800px) {
+  .left-pane { width: 100%; }
+  .right-pane { float: left; width: 100%; margin-top: 10px;}
+  .left { width: 33% }
+  .right { width: 62% }
+}
