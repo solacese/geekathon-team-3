@@ -32,6 +32,7 @@ public class VendorProcessor {
     private String res_topic;
     
     private String vendorname;
+    private String vendortype;
     private JsonArray parts_db;
 
     @PostConstruct
@@ -50,7 +51,8 @@ public class VendorProcessor {
         
         
         vendorname = vendor.getString("vendorname");
-        res_topic = vendor.getString("vendortype")+"/part/avail/res";
+        vendortype = vendor.getString("vendortype");
+        res_topic = vendortype+"/part/avail/res";
         parts_db = vendor.getJsonArray("parts");
     }
 
@@ -75,8 +77,9 @@ public class VendorProcessor {
                 }
             }
             JsonObject res = Json.createObjectBuilder()
-                .add("vendorname", vendorname)
                 .add("vin", request.getString("vin"))
+                .add("vendorname", vendorname)
+                .add("vendortype", vendortype)
                 .add("parts", res_parts_builder)
                 .build();
 
