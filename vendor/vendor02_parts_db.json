@@ -1,0 +1,22 @@
+{
+    "vendorname":"Vendor02",
+    "vendortype":"vnd",
+    "parts": [
+      {
+        "type": "headlight",
+        "model": "xbrite 1000",
+        "cost":90.10,
+        "available": true,
+        "shipdays": 1,
+        "shipcost": 50
+      },
+      {
+        "type": "wheels",
+        "model": "spinnerz",
+        "cost":81.10,
+        "available": true,
+        "shipdays": 1,
+        "shipcost": 50
+      }      
+    ]
+  }
