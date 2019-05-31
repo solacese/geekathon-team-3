@@ -19,7 +19,7 @@
 
                             "performance": {
                                 "acceleration"  : "40",
-                                "topspeed"     : 70,
+                                "topspeed"      : "70",
                                 "nitrous"       : "40",
                                 "handling"      : "40",
                                 "drivetrain"    : "30"
