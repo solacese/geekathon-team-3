@@ -1,6 +1,8 @@
 {
   "vin": "1G1JC1444PZ215071",
-  "parts": [
+  "parts": {
+    
+    "visual" : [
     {
       "type": "headlight",
       "model": "xbrite 1000"
@@ -9,5 +11,19 @@
       "type": "wheels",
       "model": "spinnerz"
     }
+  ],
+
+  "performance" : [
+
+    {
+      "type" : "acceleration",
+      "value" : 40
+    },
+    {
+      "type" : "drivetrain",
+      "value" : 70
+    }
   ]
+}
+
 }

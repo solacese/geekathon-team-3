@@ -1,22 +1,44 @@
 {
-  "vendorname":"car stuff inc."
+  "vendorname":"car stuff inc.",
   "vin": "1G1JC1444PZ215071",
-  "parts": [
-    {
-      "type": "headlight",
-      "model": "xbrite 1000",
-      "cost":100.10,
+  "parts": {
+    "visual":
+    [
+      {
+        "type": "headlight",
+        "model": "xbrite 1000",
+        "cost":100.10,
+        "available": true,
+        "shipdays": 1,
+        "shipcost": 50
+      },
+      {
+        "type": "wheels",
+        "model": "something else",
+        "cost":200.20,
+        "available": true,
+        "shipdays": 1,
+        "shipcost": 50
+      }
+  ],
+  "performance":[{
+      "type" : "acceleration",
+      "value" : 40,
+      "cost":200.20,
       "available": true,
       "shipdays": 1,
       "shipcost": 50
     },
     {
-      "type": "wheels",
-      "model": "something else",
+      "type" : "drivetrain",
+      "value" : 70,
       "cost":200.20,
       "available": true,
       "shipdays": 1,
       "shipcost": 50
     }
-  ]
+
+    ]
+  }
 }
+
