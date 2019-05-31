@@ -1,0 +1,58 @@
+General hierarchy for events sent:
+
+<publisher>/<entity>/<entity-id>/<operation>
+
+a. UI Manager requests for details of a scanned VIN:   
+
+Req event   : mgr/vehicle/<VIN>/profile/req          ( Get profile details)
+Resp event  : oms/vehicle/<VIN>/profile/details      ( Return Profile details)
+
+b. Order Estimate Request from UI to OMS:
+
+Req event   : mgr/vehicle/<vin>/order/new/estimate           (get estimate for order)
+Res event   : oms/vehicle/<vin>/order/<order-id>/cost               (Return Cost)
+
+c. OMS Checks Part Availability:
+
+First check with warehouse:
+
+Req event   : oms/part/<part-type>/avail/req           (Check availability)
+Res event   : whs/part/<party-type/avail/res           (Availability)
+
+If parts not in warehouse, check with vendor:
+
+Req event   : oms/part/<part-type>/avail/req           (Check availability)
+Res event   : vnd/part/<party-type/avail/res           (Availability)
+
+d. New Order Request from UI to OMS: 
+
+Req event   : mgr/vehicle/<vin>/order/<order-id>/place           (Place New Order)
+Res event   : oms/vehicle/<vin>/order/<order-id>/ack               (Ack order reception)
+
+As updates in the order stage are made, OMS sends updates back to UI:
+
+OMS Sends event  : mgr/vehicle/<vin>/order/<order-id>/update           (Order Status Update)
+
+In case the user wants to cancel an order after viewing the cost:
+
+Req event   : mgr/vehicle/<vin>/order/<order-id>/cancel           (Cancel Order)
+Res event   : oms/vehicle/<vin>/order/<order-id>/cancel/ack         
+
+e. Once a new order is placed, the oms should get all orders from the vendor or warehouse:
+
+For all orders:
+
+Req event   : oms/part/<part-type>/req                (Get Part)
+Res event   : whs/part/<party-type>/delivery          (Part Delivery)  
+
+or            vnd/part/<party-type>/delivery
+
+Once all parts are delivered, initiate the build!
+
+OMS sends a messsage on: oms/vehicle/<vin>/order/<order-id>/assemble
+
+Once the build is complete, the build Assemble Bot responds on: abt/vehicle/<vin>/order/<order-id>/finished
+
+Finally, once the build is complete, the OMS sends an update to MGR: 
+
+mgr/vehicle/<vin>/order/<order-id>/update

@@ -1,0 +1,24 @@
+plugins {
+	id 'org.springframework.boot' version '2.1.5.RELEASE'
+	id 'java'
+	id 'eclipse'
+}
+
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com.solace.geek3'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	// Solace Java API & auto-configuration
+	implementation 'com.solace.spring.boot:solace-java-spring-boot-starter:1.+'	
+	implementation "org.glassfish:javax.json:1.1.4"
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
