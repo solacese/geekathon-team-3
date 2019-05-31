@@ -1,0 +1,28 @@
+{
+        "username"  : "shrikanth",
+        "name"  : "Shrikanth",
+        "car"       : { 
+                            "about" : {
+                                "vin"       : "V1234ABC",
+                                "make"      : "Lamborghini",
+                                "model"     : "Urus"
+
+                            },
+                            "visual": {
+                                "paint"         : "red",
+                                "wheels"        : "stock",
+                                "headlights"    : "stock",
+                                "decals"        : "none",
+                                "windowtint"    : "none"
+
+                            },
+
+                            "performance": {
+                                "acceleration"  : "40",
+                                "topspeed"     : 70,
+                                "nitrous"       : "40",
+                                "handling"      : "40",
+                                "drivetrain"    : "30"
+                            }
+                        }
+    }

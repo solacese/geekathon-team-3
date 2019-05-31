@@ -9,6 +9,14 @@
       "available": true,
       "shipdays": 1,
       "shipcost": 50
+    },
+    {
+      "type": "wheels",
+      "model": "something else",
+      "cost":200.20,
+      "available": true,
+      "shipdays": 1,
+      "shipcost": 50
     }
   ]
 }
