@@ -1,0 +1,48 @@
+<div class="col-md-4 ml-auto mr-auto">
+    <div class="card card-login card-plain">        
+        <form  method="" action="">
+            <div class="card-header text-center">
+                    <h1 class="h3 mb-3 font-weight-normal">Please Log In</h1>
+            </div>
+            <div class="card-body">
+                
+                <div class="input-group no-border input-lg">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                    <i class="now-ui-icons users_circle-08"></i>
+                    </span>
+                </div>
+                <input type="text" class="form-control" placeholder="Username.." required autofocus ng-model="username">
+                </div>
+                <div class="input-group no-border input-lg">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                    <i class="now-ui-icons text_caps-small"></i>
+                    </span>
+                </div>
+                <input type="password" placeholder="Password..." class="form-control" required autofocus ng-model="password" />
+                </div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <div class="card-footer text-center">
+                    <button class="btn btn-lg btn-primary btn-block" type="button" ng-click="submit()" ng-disabled="disableFormElement('submitBtn')">Log In</button>
+            </div>
+
+            <!-- <div>
+                    <h1 class="h3 mb-3 font-weight-normal"> Or, to login by scanning your VIN's QR code:</h1>
+                    <button class="btn btn-lg btn-warning" ng-click="scanQr()">Scan QR</button>
+                    <img src="assets/img/qr.png" alt="QR code lol" width="72" height="72">
+            </div> -->
+
+        </form> 
+    </div>
+</div> 
+
+
+

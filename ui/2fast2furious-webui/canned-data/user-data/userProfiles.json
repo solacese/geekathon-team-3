@@ -1,0 +1,132 @@
+[
+    {
+        "username": "shrikanth",
+        "name": "Shrikanth",
+        "car": {
+            "about": {
+                "vin": "V1234ABC",
+                "make": "Lamborghini",
+                "model": "Urus"
+    
+            },
+    
+            "parts": {
+    
+                "visual": [{
+                        "type": "headlights",
+                        "model": "xbrite 1000"
+                    },
+                    {
+                        "type": "wheels",
+                        "model": "spinnerz"
+                    },
+                    {
+                        "type": "paint",
+                        "model": "red"
+                    },
+                    {
+                        "type": "decals",
+                        "model": "none"
+                    },
+                    {
+                        "type": "windowtint",
+                        "model": "none"
+                    }
+    
+    
+                ],
+    
+                "performance": [
+    
+                    {
+                        "type": "acceleration",
+                        "value": 40
+                    },
+                    {
+                        "type": "drivetrain",
+                        "value": 70
+                    },
+                    {
+                        "type": "topspeed",
+                        "value": 70
+                    },
+                    {
+                        "type": "nitrous",
+                        "value": 30
+                    },
+                    {
+                        "type": "handling",
+                        "value": 60
+                    }
+                ]
+            }
+    
+    
+        }
+    },
+    {
+        "username": "john",
+        "name": "John",
+        "car": {
+            "about": {
+                "vin": "V45678",
+                "make": "Dodge",
+                "model": "Viper"
+    
+            },
+    
+            "parts": {
+    
+                "visual": [{
+                        "type": "headlights",
+                        "model": "xbrite 1000"
+                    },
+                    {
+                        "type": "wheels",
+                        "model": "spinnerz"
+                    },
+                    {
+                        "type": "paint",
+                        "model": "red"
+                    },
+                    {
+                        "type": "decals",
+                        "model": "snake"
+                    },
+                    {
+                        "type": "windowtint",
+                        "model": "blue"
+                    }
+    
+    
+                ],
+    
+                "performance": [
+    
+                    {
+                        "type": "acceleration",
+                        "value": 30
+                    },
+                    {
+                        "type": "drivetrain",
+                        "value": 50
+                    },
+                    {
+                        "type": "topspeed",
+                        "value": 40
+                    },
+                    {
+                        "type": "nitrous",
+                        "value": 30
+                    },
+                    {
+                        "type": "handling",
+                        "value": 60
+                    }
+                ]
+            }
+    
+    
+        }
+    }
+]

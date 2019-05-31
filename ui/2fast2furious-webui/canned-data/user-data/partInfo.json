@@ -1,0 +1,35 @@
+{
+    "visual" : {
+        "paint"         : [
+                            "red",
+                            "blue",
+                            "black",
+                            "orange"
+                            ],
+        "wheels"        :[
+                            "stock",
+                            "type1",
+                            "type2",
+                            "type3"
+                         ],
+        "headlights"    : [
+            "stock",
+            "type1",
+            "type2",
+            "type3"
+         ],
+        "decals"        : [
+            "none",
+            "type1",
+            "type2",
+            "type3"
+         ],
+        "windowtint"   : [
+            "none",
+            "type1",
+            "type2",
+            "type3"
+         ]
+
+    }
+}
