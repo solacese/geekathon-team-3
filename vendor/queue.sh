@@ -1,8 +1,8 @@
 #!/bin/bash
-export SOL_HOST=http://localhost:8080
-export SOL_VPN=default
-export SOL_ADMIN=admin
-export SOL_PWD=admin
+export SOL_HOST=http://azurevmr.westeurope.cloudapp.azure.com:8080
+export SOL_VPN=eventMesh
+export SOL_ADMIN=geekfestAdmin
+export SOL_PWD=SanDiego!
 
 queue_json='
 {
