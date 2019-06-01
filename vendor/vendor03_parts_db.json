@@ -1,5 +1,5 @@
 {
-  "vendorname":"Vendor02",
+  "vendorname":"Vendor03",
   "vendortype":"vnd",
   "parts": [
       {
@@ -9,7 +9,7 @@
         "cost":100.10,
         "available": true,
         "shipdays": 1,
-        "shipcost": 50
+        "shipcost": 40
       },
       {
         "category": "visual",
@@ -18,7 +18,7 @@
         "cost":200.20,
         "available": true,
         "shipdays": 1,
-        "shipcost": 50
+        "shipcost": 40
       },
       {
         "category": "performance",
@@ -27,7 +27,7 @@
         "cost":200.20,
         "available": true,
         "shipdays": 1,
-        "shipcost": 50
+        "shipcost": 40
       },
       {
         "category": "performance",
@@ -36,7 +36,7 @@
         "cost":200.20,
         "available": true,
         "shipdays": 1,
-        "shipcost": 50
+        "shipcost": 40
       }
   ]
 }

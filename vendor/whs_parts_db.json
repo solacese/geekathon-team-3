@@ -1,6 +1,6 @@
 {
-  "vendorname":"Vendor02",
-  "vendortype":"vnd",
+  "vendorname":"Warehouse",
+  "vendortype":"whs",
   "parts": [
       {
         "category": "visual",

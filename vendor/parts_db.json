@@ -3,6 +3,7 @@
     "vendortype":"vnd",
     "parts": [
       {
+        "category": "visual",
         "type": "headlight",
         "model": "xbrite 1000",
         "cost":100.10,
@@ -11,12 +12,31 @@
         "shipcost": 50
       },
       {
+        "category": "visual",
         "type": "wheels",
-        "model": "spinnerz",
-        "cost":80.10,
+        "model": "something else",
+        "cost":200.20,
         "available": true,
         "shipdays": 1,
         "shipcost": 50
-      }      
+      },
+      {
+        "category": "performance",
+        "type" : "acceleration",
+        "value" : 40,
+        "cost":200.20,
+        "available": true,
+        "shipdays": 1,
+        "shipcost": 50
+      },
+      {
+        "category": "performance",
+        "type" : "drivetrain",
+        "value" : 70,
+        "cost":200.20,
+        "available": true,
+        "shipdays": 1,
+        "shipcost": 50
+      }
     ]
   }
