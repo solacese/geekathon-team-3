@@ -21,6 +21,33 @@
         "shipcost": 50
       },
       {
+        "category": "visual",
+        "type": "paint",
+        "model": "something else",
+        "cost":200.20,
+        "available": true,
+        "shipdays": 1,
+        "shipcost": 50
+      },
+      {
+        "category": "visual",
+        "type": "decals",
+        "model": "something else",
+        "cost":150.20,
+        "available": true,
+        "shipdays": 1,
+        "shipcost": 50
+      },
+      {
+        "category": "visual",
+        "type": "windowtint",
+        "model": "something else",
+        "cost":100.20,
+        "available": true,
+        "shipdays": 1,
+        "shipcost": 50
+      },
+      {
         "category": "performance",
         "type" : "acceleration",
         "value" : 40,
