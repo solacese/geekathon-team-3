@@ -1,9 +1,9 @@
 connectOptions = {
-	sBROKERURL: 'http://172.16.236.146',
-	sVPN: 'default',
-	sUSERNAME: 'default',
-	sPASSWORD: 'default',
-	sPublishTopic: 'c/d',
-	sSubscribeTopic: 'a/b',
+	sBROKERURL: 'http://london.solace.com:1880',
+	sVPN: 'eventMesh',
+	sUSERNAME: 'geekfest2019',
+	sPASSWORD: 'geekfest!!',
+	sPublishTopic: 'mgr/vehicle/002/order/new/estimate',
+	sSubscribeTopic: 'oms/vehicle/*/order/*/cost',
 	sReceiveQueue: ''
 }
