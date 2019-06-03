@@ -17,6 +17,8 @@ myApp.controller('mainController', ['$scope', '$window', '$timeout', '$http', '$
     $scope.stubOutSolace = false;
     $scope.connectedToSolace = false;
 
+    $scope.orderCostEstimateTopic = null;
+
     console.log("Mode:"+$scope.mode);
 
     console.log("In Main page!");
@@ -422,6 +424,15 @@ myApp.controller('mainController', ['$scope', '$window', '$timeout', '$http', '$
                 console.log(typeof ($scope.omsResponse) );
                 console.log($scope.omsResponse);
             }
+
+            var d = messagePayload.getDestination()
+
+            var topic = d.getName();
+
+            var parts = topic.split('/');
+            
+            $scope.orderCostEstimateTopic = parts[4];
+
 
 
             //console.log("oms response:");

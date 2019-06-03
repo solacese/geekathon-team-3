@@ -25,7 +25,7 @@
         <div ng-show="showFormElement('ORDER_STATUS')">
                 <!-- Todo change to display progress bars for the different status -->
                 <h3> Your order has been placed!</h3>
-                <h3> Order ID: <strong>0123456789</strong> </h3>
+                <h3> Order ID: <strong>{{ orderCostEstimateTopic }} </strong> </h3>
 
                 <h4> We'll send you an email when you're order is ready!</h4>
 
@@ -318,7 +318,7 @@
                                                     <i class="fas fa-dollar-sign"></i><i class="fas fa-dollar-sign"></i>  Get Estimate</button>
                                     
                                     <button ng-show="showFormElement('ORDER_ESTIMATE')" class="btn btn-lg btn-primary btn-round" type="button" ng-click="placeOrder()">
-                                                            <i class="fas fa-dollar-sign"></i> Place Order</button>
+                                                            <i class="fas fa-check"></i> Place Order</button>
 
                                     <button ng-show="showFormElement('CONFIGURE') || showFormElement('ORDER_ESTIMATE')" class="btn btn-lg btn-primary btn-round" type="button" ng-click="cancel()">
                                                         <i class="fas fa-times"></i> Cancel</button>
