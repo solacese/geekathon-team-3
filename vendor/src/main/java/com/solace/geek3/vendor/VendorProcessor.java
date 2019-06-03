@@ -92,6 +92,7 @@ public class VendorProcessor {
             
             return sw.toString();            
         } catch (Exception e) {
+        	e.printStackTrace();
             return "{}";
         }
     }
