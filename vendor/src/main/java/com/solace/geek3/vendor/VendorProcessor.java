@@ -70,8 +70,8 @@ public class VendorProcessor {
             JsonArray req_parts = request.getJsonArray("parts");
             for (JsonValue jsonVal : req_parts) {
                 String type = jsonVal.asJsonObject().getString("type");
-                String model = jsonVal.asJsonObject().getString("model");
-                JsonObject part = queryParts(type, model);
+//                String model = jsonVal.asJsonObject().getString("model");
+                JsonObject part = queryParts(type, "model");
                 if(part != null){
                     res_parts_builder.add(part);
                 }
@@ -92,6 +92,7 @@ public class VendorProcessor {
             
             return sw.toString();            
         } catch (Exception e) {
+        	e.printStackTrace();
             return "{}";
         }
     }
@@ -99,8 +100,7 @@ public class VendorProcessor {
     private JsonObject queryParts(String type, String model){
         for (JsonValue jsonVal : parts_db) {
             JsonObject part = jsonVal.asJsonObject();
-            if(type.equalsIgnoreCase(part.getString("type")) && 
-                model.equalsIgnoreCase(part.getString("model"))){
+            if(type.equalsIgnoreCase(part.getString("type"))){
                     return part;
                 }
         }
