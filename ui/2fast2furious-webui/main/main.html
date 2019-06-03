@@ -235,6 +235,7 @@
                                     <tr ng-repeat="part in partsEstimate.visual">
                                         <td>{{ part.type }}</td>
                                         <td>{{ part.model }}</td>
+                                        <!-- <td>{{ mockOmsCostResponse(part.type) }}</td> -->
                                         <!-- <td>{{ part.available }}</td> -->
                                         <td>
                                             <button ng-show="part.available == true" class="btn btn-success btn-sm"><i class="fas fa-check"></i></button>
@@ -262,7 +263,8 @@
                                     <tbody>
                                         <tr ng-repeat="part in partsEstimate.performance">
                                             <td>{{ part.type }}</td>
-                                            <td>{{ part.value }}</td>
+                                            <!-- <td>{{ part.value }}</td> -->
+                                            <td>{{ mockOmsCostResponse(part.type) }}</td>
                                             <!-- <td>{{ part.available }}</td> -->
                                             <td>
                                                     <button ng-show="part.available == true" class="btn btn-success btn-sm"><i class="fas fa-check"></i></button>

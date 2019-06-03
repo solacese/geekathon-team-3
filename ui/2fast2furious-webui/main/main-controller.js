@@ -146,6 +146,53 @@ myApp.controller('mainController', ['$scope', '$window', '$timeout', '$http', '$
 
     };
 
+    $scope.mockOmsCostResponse =  function(part){
+
+        console.log("in mockOmsCostResponse");
+
+        if (part == "acceleration"){
+            return $scope.newOrder.selectedAcceleration ;
+        }
+        else if( part == "topspeed"){
+            return $scope.newOrder.selectedTopspeed ;
+        }
+        else if( part == "drivetrain"){
+            return $scope.newOrder.selectedDrivetrain ;
+        }
+        else if( part == "handling"){
+            return $scope.newOrder.selectedHandling ;
+        }
+        else if( part == "nitrous"){
+            return $scope.newOrder.selectedNitrous ;
+        }
+        
+        else if( part == "paint"){
+            return $scope.newOrder.selectedPaint;
+
+        }else if (part == "wheels"){
+
+            return $scope.newOrder.selectedWheels;
+
+        }else if (part == "headlights"){
+
+            return $scope.newOrder.selectedHeadlights;
+
+        }else if (part == "decals"){
+
+            return $scope.newOrder.selectedDecals ;
+
+        }else if (part == "windowtint"){
+
+            return $scope.newOrder.selectedWindowtint ;
+
+        } 
+        else        
+        {
+            return "ABC";
+        }
+
+    };
+
     function initialiseNewOrderFromCurrentProfile(){
 
         $scope.newOrder.selectedPaint  = getModelFromVisualPartCurrProfile('paint');
