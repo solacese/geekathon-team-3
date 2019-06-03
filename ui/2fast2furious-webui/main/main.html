@@ -8,6 +8,13 @@
             </div>
         </div>
 
+        <div class="text-center" ng-show="displayOrderEstimateWait">
+                <h4> Contacting Warehouse, retrieving order estimate..</h4>
+                <div class="spinner-grow spinner-grow-sm" role="status">
+                        <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+
         <div ng-show="displayUserProfileNotFound">
             <div class="alert alert-warning" role="alert">
                     Unable to load profile for this user ...Please try logging in with a valid user!
@@ -214,15 +221,15 @@
 
                     <div ng-show="showFormElement('ORDER_ESTIMATE')" class="col-md-8">
                         
-                        <div>
+                        <div ng-show="displayOrderEstimate">
                             <h5 style="padding: 0px; margin : 0px;">Visual</h5>
                             <table class="table table-borderless table-dark table-sm">
                                 <thead>
                                         <th scope="col">Type</th>
                                         <th scope="col">Model</th>
                                         <th scope="col">Available?</th>
-                                        <th scope="col">Part Cost</th>
-                                        <th scope="col">Shipping Cost</th>
+                                        <th scope="col">Part Cost($)</th>
+                                        <th scope="col">Shipping Cost($)</th>
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="part in partsEstimate.visual">
@@ -242,15 +249,15 @@
                         </div>
                             
 
-                        <div>
+                        <div ng-show="displayOrderEstimate">
                                 <h5 style="padding: 0px; margin : 0px;">Performance</h5>
                                 <table class="table table-borderless table-dark table-sm">
                                     <thead>
                                             <th scope="col">Type</th>
                                             <th scope="col">Target Value(%)</th>
-                                            <th scope="col">Availability</th>
-                                            <th scope="col">Part Cost</th>
-                                            <th scope="col">Shipping Cost</th>
+                                            <th scope="col">Available?</th>
+                                            <th scope="col">Part Cost($)</th>
+                                            <th scope="col">Shipping Cost($)</th>
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="part in partsEstimate.performance">
@@ -272,9 +279,9 @@
 
                    
         
-                    <div class = "col-md-4" button ng-show="!showFormElement('ORDER_STATUS')">
+                    <div class = "col-md-4" button ng-show="!showFormElement('ORDER_SUMMARY')>
 
-                        <div class="card card-plain">
+                        <div class="card card-plain" ng-hide="displayOrderEstimateWait == true || showFormElement('ORDER_SUMMARY') == true">
                             <div class="card-header text-center">
                                     <h3 class="h3 mb-3 font-weight-normal">Your Current Ride</h3>
                             </div>
@@ -294,7 +301,7 @@
                                         </div>
                                 </form>
 
-                            <div class="card-body">
+                            <div class="card-body" ng-hide="displayOrderEstimateWait == true || showFormElement('ORDER_SUMMARY') == true">
                                 <div class="text-center" ng-show="showFormElement('VIEW') || showFormElement('CONFIGURE') || showFormElement('ORDER_ESTIMATE')" >
                                     <img ng-show="currentUserProfile.car.about.make=='Lamborghini'" class="mb-4 rounded-circle img-raised" src="assets/img/lamborghini_urus.jpg" alt="current_car" height="200" >
 
@@ -313,7 +320,7 @@
                                     <button ng-show="showFormElement('CONFIGURE') || showFormElement('ORDER_ESTIMATE')" class="btn btn-lg btn-primary btn-round" type="button" ng-click="cancel()">
                                                         <i class="fas fa-times"></i> Cancel</button>
 
-                                    <!-- display buttons for place order -->
+                                    
                                 </div>
                             </div> 
                                     

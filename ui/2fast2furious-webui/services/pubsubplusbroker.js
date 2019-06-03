@@ -135,7 +135,8 @@ class PubSubPlusBroker {
       var message = solace.SolclientFactory.createMessage();
       message.setDestination(solace.SolclientFactory.createTopicDestination(this.sPublishTopic));
       message.setDeliveryMode(solace.MessageDeliveryModeType.PERSISTENT);
-      message.setBinaryAttachment(sBody);
+      //message.setBinaryAttachment(sBody);
+      message.setSdtContainer(solace.SDTField.create(solace.SDTFieldType.STRING, sBody));
 
       console.log("Publishing message " + sBody + " to topic " + this.sPublishTopic);
 

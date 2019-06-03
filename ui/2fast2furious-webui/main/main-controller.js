@@ -51,6 +51,8 @@ myApp.controller('mainController', ['$scope', '$window', '$timeout', '$http', '$
         $scope.showLoadingProfile = true;
         $scope.displayUserProfile = false;
         $scope.displayUserProfileNotFound = false;
+        $scope.displayOrderEstimateWait = false;
+        $scope.displayOrderEstimate = false;
 
         loadUserProfileDataFromFile();
         loadPartInfoFromFile();
@@ -99,8 +101,6 @@ myApp.controller('mainController', ['$scope', '$window', '$timeout', '$http', '$
         var publishCallback = function(status, message) {
             console.log("In publishCallback, Returned with status: "+ status + " and message: "+ message); 
         };
-
-        
 
     }
 
@@ -223,6 +223,7 @@ myApp.controller('mainController', ['$scope', '$window', '$timeout', '$http', '$
         console.log($scope.newOrder);
         $scope.mode=('ORDER_ESTIMATE');
         
+        $scope.displayOrderEstimateWait = true;
 
         // Compose details of parts changes and send a message to Solace with the request
 
@@ -280,7 +281,7 @@ myApp.controller('mainController', ['$scope', '$window', '$timeout', '$http', '$
         if ($scope.newOrder.selectedPaint != getModelFromVisualPartCurrProfile('paint') ){
             var part = {};
             part.category = 'visual';
-            part.type     = 'acceleration';
+            part.type     = 'paint';
             part.value    = $scope.newOrder.selectedPaint;
             newOrderPayload.parts.push(part);
 
@@ -289,7 +290,7 @@ myApp.controller('mainController', ['$scope', '$window', '$timeout', '$http', '$
         if ($scope.newOrder.selectedDecals != getModelFromVisualPartCurrProfile('decals') ){
             var part = {};
             part.category = 'visual';
-            part.type     = 'drivetrain';
+            part.type     = 'decals';
             part.value    = $scope.newOrder.selectedDecals;
             newOrderPayload.parts.push(part);
             
@@ -298,7 +299,7 @@ myApp.controller('mainController', ['$scope', '$window', '$timeout', '$http', '$
         if ($scope.newOrder.selectedWheels != getModelFromVisualPartCurrProfile('wheels')  ){
             var part = {};
             part.category = 'visual';
-            part.type     = 'topspeed';
+            part.type     = 'wheels';
             part.value    = $scope.newOrder.selectedWheels;
             newOrderPayload.parts.push(part);
         }
@@ -306,7 +307,7 @@ myApp.controller('mainController', ['$scope', '$window', '$timeout', '$http', '$
         if($scope.newOrder.selectedHeadlights != getModelFromVisualPartCurrProfile('headlights') ){
             var part = {};
             part.category = 'visual';
-            part.type     = 'handling';
+            part.type     = 'headlights';
             part.value    = $scope.newOrder.selectedHeadlights;
             newOrderPayload.parts.push(part);
         }
@@ -314,7 +315,7 @@ myApp.controller('mainController', ['$scope', '$window', '$timeout', '$http', '$
         if ($scope.newOrder.selectedWindowtint != getModelFromVisualPartCurrProfile('windowtint') ){
             var part = {};
             part.category = 'visual';
-            part.type     = 'nitrous';
+            part.type     = 'windowtint';
             part.value    = $scope.newOrder.selectedWindowtint;
             newOrderPayload.parts.push(part);
         }
@@ -331,7 +332,14 @@ myApp.controller('mainController', ['$scope', '$window', '$timeout', '$http', '$
             //publish the order
             messagingService.publish( publishPayload, publishCallback);
         }
-          
+
+        
+         
+        $timeout(function () {
+            $scope.displayOrderEstimateWait = false;
+            $scope.displayOrderEstimate = true;
+        }, 1000);
+        
     };
 
     
@@ -377,6 +385,8 @@ myApp.controller('mainController', ['$scope', '$window', '$timeout', '$http', '$
         //parse message and set params
         getPartsEstimateByCategoryOmsResponse('visual');
         getPartsEstimateByCategoryOmsResponse('performance');
+
+        $scope.displayOrderEstimate = true;
     }
 
     $scope.getModelFromVisualPartCurrProfile = function(part){
@@ -438,7 +448,8 @@ myApp.controller('mainController', ['$scope', '$window', '$timeout', '$http', '$
 
             }
     
-            console.log("parts estimate:"+ $scope.partsEstimate);
+            console.log("parts estimate:");
+            console.log($scope.partsEstimate);
             
         }
     
