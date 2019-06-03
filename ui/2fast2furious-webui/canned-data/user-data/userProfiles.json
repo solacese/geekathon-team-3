@@ -26,11 +26,11 @@
                     },
                     {
                         "type": "decals",
-                        "model": "none"
+                        "model": "snake"
                     },
                     {
                         "type": "windowtint",
-                        "model": "none"
+                        "model": "blue"
                     }
     
     

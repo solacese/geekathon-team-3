@@ -9,9 +9,9 @@
         "wheels"        :[
                             "stock",
                             "type1",
-                            "type2",
+                            "spinnerz",
                             "type3",
-                            "spinnerz"
+                            "something else"
                          ],
         "headlights"    : [
             "stock",
@@ -28,7 +28,7 @@
             "snake"
          ],
         "windowtint"   : [
-            "none",
+            "blue",
             "type1",
             "type2",
             "type3"
