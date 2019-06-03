@@ -281,9 +281,10 @@
 
                    
         
-                    <div class = "col-md-4" button ng-show="!showFormElement('ORDER_SUMMARY')">
+                    <div class = "col-md-4" ng-if="mode == 'VIEW' || mode == 'CONFIGURE' || mode == 'ORDER_ESTIMATE' ">
 
                         <div class="card card-plain" ng-hide="displayOrderEstimateWait == true || showFormElement('ORDER_SUMMARY') == true">
+                                
                             <div class="card-header text-center">
                                     <h3 class="h3 mb-3 font-weight-normal">Your Current Ride</h3>
                             </div>
