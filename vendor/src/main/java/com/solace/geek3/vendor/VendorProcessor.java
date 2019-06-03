@@ -99,8 +99,7 @@ public class VendorProcessor {
     private JsonObject queryParts(String type, String model){
         for (JsonValue jsonVal : parts_db) {
             JsonObject part = jsonVal.asJsonObject();
-            if(type.equalsIgnoreCase(part.getString("type")) && 
-                model.equalsIgnoreCase(part.getString("model"))){
+            if(type.equalsIgnoreCase(part.getString("type"))){
                     return part;
                 }
         }
