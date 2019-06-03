@@ -10,16 +10,15 @@
 
         <div ng-show="displayUserProfileNotFound">
             <div class="alert alert-warning" role="alert">
-                    Unable to load profile for this user ...Please try logging in with a valid user
+                    Unable to load profile for this user ...Please try logging in with a valid user!
             </div>
             
         </div>
         
-        
         <div ng-show="displayUserProfile">
             <div class = "row">
-                <div class = "col-md-8">
-                    <h3> Hi {{ currentUserProfile.name }}! Welcome to Pimp My Ride with Solace!</h3>
+                <div ng-show="showFormElement('VIEW') || showFormElement('CONFIGURE')" class = "col-md-8">
+                    <h3> Hi {{ currentUserProfile.name }}! Welcome to Pimp My Ride!</h3>
 
                     <div>
                         <h5 style="padding: 0px; margin : 0px;">Visual</h5>
@@ -28,43 +27,44 @@
                                 <tr>
                                     <td align="left">Paint Job</td>
                                     <td ng-show="showFormElement('VIEW')">
-                                        {{ getModelFromVisualPart('paint') }}</td>
+                                        {{ getModelFromVisualPartCurrProfile('paint') }}</td>
                                     
-                                    <td ng-show="showFormElement('EDIT')">
-                                            <select ng-model="selectedPaint" ng-options="part for part in partInfo.visual.paint" ng-value="currentUserProfile.car.visual.paint"></select>           
+                                    <td ng-show="showFormElement('CONFIGURE')">
+                                            <select class="form-control" style="color:orangered" width='10' ng-model="newOrder.selectedPaint" ng-options="part for part in partInfo.visual.paint" ng-value="currentUserProfile.car.visual.paint"></select>           
                                     </td>
 
                                 </tr>
                                 <tr>
                                     <td align="left">Wheels</td>
                                     <td ng-show="showFormElement('VIEW')">
-                                            {{ getModelFromVisualPart('wheels') }}</td>
-                                    <td ng-show="showFormElement('EDIT')">
-                                            <select ng-model="selectedWheels" ng-options="part for part in partInfo.visual.wheels"></select>           
+                                            {{ getModelFromVisualPartCurrProfile('wheels') }}</td>
+                                    <td ng-show="showFormElement('CONFIGURE')">
+                                            <select class="form-control" style="color:orangered" width='10' ng-model="newOrder.selectedWheels" ng-options="part for part in partInfo.visual.wheels" ng-value="currentUserProfile.car.visual.wheels"></select>           
                                     </td>
                                 </tr>
                                 <tr>
                                     <td align="left">Headlights</td>
                                     <td ng-show="showFormElement('VIEW')">
-                                            {{ getModelFromVisualPart('headlights') }}</td>
-                                    <td ng-show="showFormElement('EDIT')">
-                                            <select ng-model="selectedHeadlights" ng-options="part for part in partInfo.visual.headlights"></select>           
+                                            {{ getModelFromVisualPartCurrProfile('headlights') }}</td>
+                                    
+                                    <td ng-show="showFormElement('CONFIGURE')">
+                                            <select class="form-control" style="color:orangered" width='10' ng-model="newOrder.selectedHeadlights" ng-options="part for part in partInfo.visual.headlights" ng-value="currentUserProfile.car.visual.headlights"></select>           
                                     </td>
                                 </tr>
                                 <tr>
                                     <td align="left">Decals</td>
                                     <td ng-show="showFormElement('VIEW')">
-                                            {{ getModelFromVisualPart('decals') }}</td>
-                                    <td ng-show="showFormElement('EDIT')">
-                                            <select ng-model="selectedDecals" ng-options="part for part in partInfo.visual.decals"></select>           
+                                            {{ getModelFromVisualPartCurrProfile('decals') }}</td>
+                                    <td ng-show="showFormElement('CONFIGURE')">
+                                            <select class="form-control" style="color:orangered" width='10' ng-model="newOrder.selectedDecals" ng-options="part for part in partInfo.visual.decals" ng-value="currentUserProfile.car.visual.decals"></select>           
                                     </td>
                                 </tr>
                                 <tr>
                                     <td align="left">Window Tint</td>
                                     <td ng-show="showFormElement('VIEW')">
-                                            {{ getModelFromVisualPart('windowtint') }}</td>
-                                    <td ng-show="showFormElement('EDIT')">
-                                            <select ng-model="selectedWindowtint" ng-options="part for part in partInfo.visual.windowtint"></select>           
+                                            {{ getModelFromVisualPartCurrProfile('windowtint') }}</td>
+                                    <td ng-show="showFormElement('CONFIGURE')">
+                                            <select class="form-control" style="color:orangered" width='10' ng-model="newOrder.selectedWindowtint" ng-options="part for part in partInfo.visual.paint" ng-value="currentUserProfile.car.visual.windowtint"></select>           
                                     </td>
                                 </tr>
                             </tbody>
@@ -79,78 +79,120 @@
                                     <th scope="col">Low</th>
                                     <th scope="col">Medium</th>
                                     <th scope="col">High</th>
-                                    <th ng-show="showFormElement('EDIT')" scope="col">Action</th>
+                                    <th ng-show="showFormElement('CONFIGURE')" scope="col">Action</th>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td align="left">Acceleration</td>
-                                    <td colspan="3">
+                                    <td colspan="3" ng-show="showFormElement('VIEW')">
                                             <div class="progress-container progress-primary">
                                                 <div class="progress" style="height: 15px">      
-                                                    <div class="progress-bar progress-bar-warning" role="progressbar" style="width: {{ getValueFromPerformanceAttr('acceleration') }}%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"> {{ getValueFromPerformanceAttr('acceleration') }}%    
+                                                    <div class="progress-bar progress-bar-warning" role="progressbar" style="width: {{ getValueFromPerformanceAttrCurrProfile('acceleration') }}%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"> {{ getValueFromPerformanceAttrCurrProfile('acceleration') }}%    
                                                     </div>
                                                 </div>
                                             </div>
-                                        </td>
-                                        <td>
-                                            <button ng-show="showFormElement('EDIT')" class="btn btn-info btn-sm"><i class="fas fa-plus"></i></button>
-                                        </td>
+                                    </td>
+                                    <td colspan="3" ng-show="showFormElement('CONFIGURE')">
+                                            <div class="progress-container progress-primary">
+                                                <div class="progress" style="height: 15px">      
+                                                    <div class="progress-bar progress-bar-warning" role="progressbar" style="width: {{ newOrder.selectedAcceleration }}%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"> {{ newOrder.selectedAcceleration }}%    
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </td>
+
+                                    <td>
+                                        <button ng-show="showFormElement('CONFIGURE')" ng-click="upgradePerformancePart('acceleration')" ng-disabled="newOrder.selectedAcceleration == 100" class="btn btn-info btn-sm"><i class="fas fa-plus"></i></button>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td align="left">Top Speed</td>
-                                    <td colspan="3">
+                                    <td colspan="3" ng-show="showFormElement('VIEW')">
                                             <div class="progress-container progress-primary">
                                                 <div class="progress" style="height: 15px">      
-                                                    <div class="progress-bar progress-bar-warning" role="progressbar" style="width: {{ getValueFromPerformanceAttr('topspeed') }}%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"> {{ getValueFromPerformanceAttr('topspeed') }}%      
+                                                    <div class="progress-bar progress-bar-warning" role="progressbar" style="width: {{ getValueFromPerformanceAttrCurrProfile('topspeed') }}%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"> {{ getValueFromPerformanceAttrCurrProfile('topspeed') }}%      
                                                     </div>
                                                 </div>
                                             </div>
-                                        </td>
-                                        <td>
-                                                <button ng-show="showFormElement('EDIT')" class="btn btn-info btn-sm"><i class="fas fa-plus"></i></button>
-                                            </td>
+                                    </td>
+                                    <td colspan="3" ng-show="showFormElement('CONFIGURE')">
+                                            <div class="progress-container progress-primary">
+                                                <div class="progress" style="height: 15px">      
+                                                    <div class="progress-bar progress-bar-warning" role="progressbar" style="width: {{ newOrder.selectedTopspeed }}%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"> {{ newOrder.selectedTopspeed }}%    
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </td>
+                                    <td>
+                                            <button ng-show="showFormElement('CONFIGURE')" class="btn btn-info btn-sm" ng-click="upgradePerformancePart('topspeed')" ng-disabled="newOrder.selectedTopspeed == 100"><i class="fas fa-plus"></i></button>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td align="left">Handling</td>
-                                    <td colspan="3">
+                                    <td colspan="3" ng-show="showFormElement('VIEW')">
                                             <div class="progress-container progress-primary">
                                                 <div class="progress" style="height: 15px">      
-                                                    <div class="progress-bar progress-bar-warning" role="progressbar" style="width: {{ getValueFromPerformanceAttr('handling') }}%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"> {{ getValueFromPerformanceAttr('handling') }}%    
+                                                    <div class="progress-bar progress-bar-warning" role="progressbar" style="width: {{ getValueFromPerformanceAttrCurrProfile('handling') }}%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"> {{ getValueFromPerformanceAttrCurrProfile('handling') }}%    
                                                     </div>
                                                 </div>
                                             </div>
                                         </td>
+                                        <td colspan="3" ng-show="showFormElement('CONFIGURE')">
+                                                <div class="progress-container progress-primary">
+                                                    <div class="progress" style="height: 15px">      
+                                                        <div class="progress-bar progress-bar-warning" role="progressbar" style="width: {{ newOrder.selectedHandling }}%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"> {{ newOrder.selectedHandling }}%    
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </td>
                                         <td>
-                                                <button ng-show="showFormElement('EDIT')" class="btn btn-info btn-sm"><i class="fas fa-plus"></i></button>
-                                            </td>
+                                                <button ng-show="showFormElement('CONFIGURE')" class="btn btn-info btn-sm" ng-click="upgradePerformancePart('handling')" ng-disabled="newOrder.selectedHandling== 100"><i class="fas fa-plus"></i></button>
+                                        </td> 
                                 </tr>
                                 <tr>
                                     <td align="left">Drivetrain</td>
-                                    <td colspan="3">
+                                    <td colspan="3" ng-show="showFormElement('VIEW')">
                                         <div class="progress-container progress-primary">
                                             <div class="progress" style="height: 15px">      
-                                                <div class="progress-bar progress-bar-warning" role="progressbar" style="width: {{ getValueFromPerformanceAttr('drivetrain') }}%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"> {{ getValueFromPerformanceAttr('drivetrain')}}%    
+                                                <div class="progress-bar progress-bar-warning" role="progressbar" style="width: {{ getValueFromPerformanceAttrCurrProfile('drivetrain') }}%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"> {{ getValueFromPerformanceAttrCurrProfile('drivetrain')}}%    
                                                 </div>
                                             </div>
                                         </div>
                                     </td>
+                                    <td colspan="3" ng-show="showFormElement('CONFIGURE')">
+                                            <div class="progress-container progress-primary">
+                                                <div class="progress" style="height: 15px">      
+                                                    <div class="progress-bar progress-bar-warning" role="progressbar" style="width: {{ newOrder.selectedDrivetrain }}%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"> {{ newOrder.selectedDrivetrain}}%    
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </td>
                                     <td >
-                                            <button ng-show="showFormElement('EDIT')" class="btn btn-info btn-sm"><i class="fas fa-plus"></i></button>
+                                            <button ng-show="showFormElement('CONFIGURE')" class="btn btn-info btn-sm" ng-click="upgradePerformancePart('drivetrain')" ng-disabled="newOrder.selectedDrivetrain == 100"><i class="fas fa-plus"></i></button>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td align="left">Nitrous</td>
-                                    <td colspan="3">
+                                    <td colspan="3" ng-show="showFormElement('VIEW')">
                                         <div class="progress-container progress-primary">
                                             <div class="progress" style="height: 15px">      
-                                                <div class="progress-bar progress-bar-warning" role="progressbar" style="width: {{ getValueFromPerformanceAttr('nitrous') }}%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"> {{ getValueFromPerformanceAttr('nitrous') }}%    
+                                                <div class="progress-bar progress-bar-warning" role="progressbar" style="width: {{ getValueFromPerformanceAttrCurrProfile('nitrous') }}%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"> {{ getValueFromPerformanceAttrCurrProfile('nitrous') }}%    
                                                 </div>
                                             </div>
                                         </div>         
                                     </td>
+                                    <td colspan="3" ng-show="showFormElement('CONFIGURE')">
+                                            <div class="progress-container progress-primary">
+                                                <div class="progress" style="height: 15px">      
+                                                    <div class="progress-bar progress-bar-warning" role="progressbar" style="width: {{ newOrder.selectedNitrous }}%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"> {{ newOrder.selectedNitrous }}%    
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </td>
                                     <td>
-                                            <button ng-show="showFormElement('EDIT')" class="btn btn-info btn-sm"><i class="fas fa-plus"></i></button>
-                                        </td>
+                                            <button ng-show="showFormElement('CONFIGURE')" class="btn btn-info btn-sm" ng-click="upgradePerformancePart('nitrous')" ng-disabled="newOrder.selectedNitrous == 100"><i class="fas fa-plus"></i></button>
+                                    </td>
+                                    
                                 </tr>
                             </tbody>
                         </table>
@@ -158,8 +200,68 @@
                     
     
                     </div>
+
+                    <div ng-show="showFormElement('ORDER_ESTIMATE')" class="col-md-8">
+                        
+                        <div>
+                            <h5 style="padding: 0px; margin : 0px;">Visual</h5>
+                            <table class="table table-borderless table-dark table-sm">
+                                <thead>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">Model</th>
+                                        <th scope="col">Availability</th>
+                                        <th scope="col">Part Cost</th>
+                                        <th scope="col">Shipping Cost</th>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="part in partsEstimate.visual">
+                                        <td>{{ part.type }}</td>
+                                        <td>{{ part.model }}</td>
+                                        <td>{{ part.available }}</td>
+                                        <td>{{ part.cost }}</td>
+                                        <td>{{ part.shipcost}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                            
+
+                        <div>
+                                <h5 style="padding: 0px; margin : 0px;">Performance</h5>
+                                <table class="table table-borderless table-dark table-sm">
+                                    <thead>
+                                            <th scope="col">Type</th>
+                                            <th scope="col">Model</th>
+                                            <th scope="col">Availability</th>
+                                            <th scope="col">Part Cost</th>
+                                            <th scope="col">Shipping Cost</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="part in partsEstimate.performance">
+                                            <td>{{ part.type }}</td>
+                                            <td>{{ part.model }}</td>
+                                            <td>{{ part.available }}</td>
+                                            <td>{{ part.cost }}</td>
+                                            <td>{{ part.shipcost}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                        </div>
+
+                    </div>
+
+                    <div ng-show="showFormElement('ORDER_STATUS')">
+                            <!-- Todo change to display progress bars for the different status -->
+                            <h3> Your order has been placed!</h3>
+                            <h3> Order ID: <strong>0123456789</strong> </h3>
+
+                            <h4> We'll send you an email when you're order is ready!</h4>
+
+                            <p>We apologize for not having a page to check you're order status. You see, our developer was busy roaming around San Francisco this weekend and didn't have the time to build the page! </p>
+    
+                     </div>
         
-                    <div class = "col-md-4">
+                    <div class = "col-md-4" button ng-show="!showFormElement('ORDER_STATUS')">
 
                         <div class="card card-plain">
                             <div class="card-header text-center">
@@ -182,14 +284,25 @@
                                 </form>
 
                             <div class="card-body">
-                                <div class="text-center">
-                                    <img class="mb-4" src="assets/img/lamborghini_urus.jpg" alt="current_car" height="200">
+                                <div class="text-center" ng-show="showFormElement('VIEW') || showFormElement('CONFIGURE') || showFormElement('ORDER_ESTIMATE')" >
+                                    <img ng-show="currentUserProfile.car.about.make=='Lamborghini'" class="mb-4 rounded-circle img-raised" src="assets/img/lamborghini_urus.jpg" alt="current_car" height="200" >
+
+                                    <img ng-show="currentUserProfile.car.about.make=='Dodge Viper'" class="mb-4 rounded-circle img-raised" src="assets/img/Viper_201.jpg" alt="current_car" height="200">
+
+                                    <img ng-show="currentUserProfile.car.about.make=='Chevrolet Corvette'" class="mb-4 rounded-circle img-raised" src="assets/img/2017-chevrolet-corvette-stingray.png" alt="current_car" height="200">
+
                                     <button ng-show="showFormElement('VIEW')" class="btn btn-lg btn-primary btn-round" type="button" ng-click="configure()">
                                             <i class="fas fa-cog"></i> Customize Ride</button>
-                                    <button ng-show="showFormElement('EDIT')" class="btn btn-lg btn-primary btn-round" type="button" ng-click="estimate()">
-                                                    <i class="fas fa-cog"></i> Get Estimate</button>
-                                    <button ng-show="showFormElement('EDIT')" class="btn btn-lg btn-primary btn-round" type="button" ng-click="cancel()">
-                                                        <i class="fas fa-cog"></i> Cancel</button>
+                                    <button ng-show="showFormElement('CONFIGURE')" class="btn btn-lg btn-primary btn-round" type="button" ng-click="estimate()">
+                                                    <i class="fas fa-dollar-sign"></i><i class="fas fa-dollar-sign"></i>  Get Estimate</button>
+                                    
+                                    <button ng-show="showFormElement('ORDER_ESTIMATE')" class="btn btn-lg btn-primary btn-round" type="button" ng-click="placeOrder()">
+                                                            <i class="fas fa-dollar-sign"></i> Place Order</button>
+
+                                    <button ng-show="showFormElement('CONFIGURE') || showFormElement('ORDER_ESTIMATE')" class="btn btn-lg btn-primary btn-round" type="button" ng-click="cancel()">
+                                                        <i class="fas fa-times"></i> Cancel</button>
+
+                                    <!-- display buttons for place order -->
                                 </div>
                             </div> 
                                     

@@ -4,9 +4,9 @@
         "name": "Shrikanth",
         "car": {
             "about": {
-                "vin": "V1234ABC",
-                "make": "Lamborghini",
-                "model": "Urus"
+                "vin": "1G1JC1444PZ215071",
+                "make": "Chevrolet Corvette",
+                "model": "2017 Stingray"
     
             },
     
@@ -70,8 +70,8 @@
         "car": {
             "about": {
                 "vin": "V45678",
-                "make": "Dodge",
-                "model": "Viper"
+                "make": "Dodge Viper",
+                "model": "VX 2017"
     
             },
     

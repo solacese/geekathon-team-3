@@ -10,19 +10,22 @@
                             "stock",
                             "type1",
                             "type2",
-                            "type3"
+                            "type3",
+                            "spinnerz"
                          ],
         "headlights"    : [
             "stock",
             "type1",
             "type2",
-            "type3"
+            "type3",
+            "xbrite 1000"
          ],
         "decals"        : [
             "none",
             "type1",
             "type2",
-            "type3"
+            "type3",
+            "snake"
          ],
         "windowtint"   : [
             "none",

@@ -1,18 +1,36 @@
 myApp.controller('mainController', ['$scope', '$window', '$timeout', '$http', '$filter', 'loginStatus', 'messagingService',
                  function($scope, $window, $timeout, $http, $filter, loginStatus, messagingService) {
+    
     $scope.pageName = 'Main';
     $scope.userProfiles = [];
 
     $scope.partInfo = null;
+    $scope.omsResponse = null;
     $scope.currentUserProfile = null;
-    //possible values: VIEW, EDIT, SUBMIT
-    $scope.mode = "VIEW";
+
+    $scope.partsEstimate = {};
+
+    $scope.partsEstimate.visual = [];
+    $scope.partsEstimate.performance = [];
+    
+    $scope.mode = "VIEW";               //possible values: VIEW, CONFIGURE, ORDER_ESTIMATE, ORDER_STATUS
+    $scope.stubOutSolace = true;
     $scope.connectedToSolace = false;
 
     console.log("Mode:"+$scope.mode);
 
     console.log("In Main page!");
+    
 
+    $scope.rules = [
+        { rulename: "Must be 5 characters" },
+        { rulename: "Must not be used elsewhere" },
+        { rulename: "Must be cool" }
+    ];
+    
+    console.log($scope.rules);
+
+    $scope.newOrder = {};
 
     // On login, check the login status
 
@@ -36,6 +54,7 @@ myApp.controller('mainController', ['$scope', '$window', '$timeout', '$http', '$
 
         loadUserProfileDataFromFile();
         loadPartInfoFromFile();
+        loadCannedOMSResponseFromFile();
 
         $timeout(function () {
             $scope.showLoadingProfile = false;
@@ -116,7 +135,7 @@ myApp.controller('mainController', ['$scope', '$window', '$timeout', '$http', '$
           console.log("Current User:");
           console.log( $scope.currentUserProfile );
 
-          if ($scope.currentUserProfile != null){
+          if ($scope.currentUserProfile != null && !$scope.stubOutSolace ){
 
             console.log("Lets try  using Solace shall we..");
 
@@ -127,6 +146,24 @@ myApp.controller('mainController', ['$scope', '$window', '$timeout', '$http', '$
 
     };
 
+    function initialiseNewOrderFromCurrentProfile(){
+
+        $scope.newOrder.selectedPaint  = getModelFromVisualPartCurrProfile('paint');
+        $scope.newOrder.selectedWheels = getModelFromVisualPartCurrProfile('wheels');
+        $scope.newOrder.selectedHeadlights = getModelFromVisualPartCurrProfile('headlights');
+        $scope.newOrder.selectedDecals = getModelFromVisualPartCurrProfile('decals');
+        $scope.newOrder.selectedWindowtint = getModelFromVisualPartCurrProfile('windowtint');
+
+        $scope.newOrder.selectedAcceleration  = getValueFromPerformanceAttrCurrProfile('acceleration');
+        $scope.newOrder.selectedHandling  = getValueFromPerformanceAttrCurrProfile('handling');
+        $scope.newOrder.selectedDrivetrain  = getValueFromPerformanceAttrCurrProfile('drivetrain');
+        $scope.newOrder.selectedTopspeed  = getValueFromPerformanceAttrCurrProfile('topspeed');
+        $scope.newOrder.selectedNitrous  = getValueFromPerformanceAttrCurrProfile('nitrous');
+
+        console.log("Initialised new order:");
+        console.log($scope.newOrder);
+    };
+
     function loadPartInfoFromFile(){
         console.log("In loadPartInfo");
 
@@ -135,6 +172,18 @@ myApp.controller('mainController', ['$scope', '$window', '$timeout', '$http', '$
           $scope.partInfo = res.data;
           console.log("Loaded canned part info successfully");
           console.log($scope.partInfo);
+                       
+        });
+    }
+
+    function loadCannedOMSResponseFromFile(){
+        console.log("In loadCannedOMSResponseFromFile");
+
+        $http.get('canned-data/user-data/omsResponse.json')
+       .then(function(res){
+          $scope.omsResponse = res.data;
+          console.log("Loaded canned OMS response successfully");
+          console.log($scope.omsResponse);
                        
         });
     }
@@ -156,44 +205,13 @@ myApp.controller('mainController', ['$scope', '$window', '$timeout', '$http', '$
             return true;
         }else{
             return false;
-        }
-
-        // if (element == "configureBtn"){
-        //     if ($scope.mode == "VIEW"){
-        //         return true;
-        //     }
-        //     else if ($scope.mode == "EDIT"){
-        //         return false;
-        //     }
-        // }
-        // else if (element == "estimateBtn"){
-        //     if ($scope.mode == "VIEW"){
-        //         return false;
-        //     }
-        //     else if ($scope.mode == "EDIT"){
-        //         return true;
-        //     }
-        // }
-        // else if (element == "cancelBtn"){
-        //     if ($scope.mode == "VIEW"){
-        //         return false;
-        //     }
-        //     else if ($scope.mode == "EDIT"){
-        //         return true;
-        //     }
-        // }else{
-        //     // default behavior: show element only in EDIT mode
-        //     if ($scope.mode == "EDIT"){
-        //         return true;
-        //     }
-        //     else if ($scope.mode == "VIEW"){
-        //         return false;
-        //     }
-        // }   
+        }  
     }
 
     $scope.configure = function(){
-        $scope.mode = "EDIT";
+        $scope.mode = "CONFIGURE";
+        initialiseNewOrderFromCurrentProfile();
+
     };
 
     $scope.cancel = function(){
@@ -201,17 +219,38 @@ myApp.controller('mainController', ['$scope', '$window', '$timeout', '$http', '$
     };
 
     $scope.estimate = function(){
+
+        console.log($scope.newOrder);
+        $scope.mode=('ORDER_ESTIMATE');
+        
+
         // Compose details of parts changes and send a message to Solace with the request
+
+        // We simulate it by showing a canned response
+        getPartsEstimateByCategoryOmsResponse('visual');
+        getPartsEstimateByCategoryOmsResponse('performance');
        
     };
 
-    $scope.getModelFromVisualPart = function(part){
+    
+
+    function estimateCallback(){
+
+        // this is the callback function which will be triggered when the estimate from Solace is received
+    }
+
+    $scope.getModelFromVisualPartCurrProfile = function(part){
+
+        return getModelFromVisualPartCurrProfile(part);
+
+    }
+    
+    function getModelFromVisualPartCurrProfile(part){
 
         if ($scope.currentUserProfile != null){
 
             var partObj = $filter('filter')($scope.currentUserProfile.car.parts.visual, {'type':part });
-            console.log("got partObj:");
-            console.log(partObj);
+            
             return partObj[0].model;
         }
         else{
@@ -219,31 +258,79 @@ myApp.controller('mainController', ['$scope', '$window', '$timeout', '$http', '$
         }
     };
 
-    $scope.getValueFromPerformanceAttr = function(attr){
+    $scope.getValueFromPerformanceAttrCurrProfile = function(attr){
 
-        console.log(attr);
+        return getValueFromPerformanceAttrCurrProfile(attr);
+
+    }
+
+    function getValueFromPerformanceAttrCurrProfile(attr){
 
         if ($scope.currentUserProfile != null){
 
             var partObj = $filter('filter')($scope.currentUserProfile.car.parts.performance, {'type':attr });
-            console.log("got partObj:");
-            console.log(partObj);
+            
             return partObj[0].value;
         }
         else{
             return null;
         }
     }
+
+    function getPartsEstimateByCategoryOmsResponse(category){
+
+        console.log("in getPartsEstimateByCategory() ");
+
+        if ($scope.omsResponse != null){
+
+            var partsArr = $filter('filter')($scope.omsResponse.parts, {'category':category });
+            
+            if (category == 'visual'){
+
+                $scope.partsEstimate.visual = partsArr;
+            }
+            else if(category == 'performance'){
+
+                $scope.partsEstimate.performance = partsArr;
+
+            }
+    
+            console.log($scope.partsEstimate);
+            
+        }
+    
+    }
+
+    $scope.getPartsEstimateByCategoryOmsResponse = function(){
+        getPartsEstimateByCategoryOmsResponse();
+    }
+
+
+    $scope.upgradePerformancePart = function(part){
+
+        if (part == 'acceleration'){
+            $scope.newOrder.selectedAcceleration +=10;
+        }else if (part == 'handling'){
+            $scope.newOrder.selectedHandling +=10;
+        }else if (part == 'drivetrain'){
+            $scope.newOrder.selectedDrivetrain +=10;
+        }else if (part == 'topspeed'){
+            $scope.newOrder.selectedTopspeed +=10;
+        }else if (part == 'nitrous'){
+            $scope.newOrder.selectedNitrous +=10;
+        }
+    }
+
+    $scope.placeOrder = function(){
+
+        console.log("In function placeOrder!!!!!");
+        $scope.mode = "ORDER_STATUS";
+    }
+
+    function capitalize(string) 
+    {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
         
-    
-
-
-
-
-
-
-
-    
-
 }]);
 
