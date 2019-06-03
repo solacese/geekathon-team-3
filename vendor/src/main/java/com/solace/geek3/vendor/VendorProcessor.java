@@ -70,8 +70,8 @@ public class VendorProcessor {
             JsonArray req_parts = request.getJsonArray("parts");
             for (JsonValue jsonVal : req_parts) {
                 String type = jsonVal.asJsonObject().getString("type");
-                String model = jsonVal.asJsonObject().getString("model");
-                JsonObject part = queryParts(type, model);
+//                String model = jsonVal.asJsonObject().getString("model");
+                JsonObject part = queryParts(type, "model");
                 if(part != null){
                     res_parts_builder.add(part);
                 }
