@@ -134,10 +134,10 @@ class PubSubPlusBroker {
        *to said object*/
       var message = solace.SolclientFactory.createMessage();
       message.setDestination(solace.SolclientFactory.createTopicDestination(this.sPublishTopic));
-      message.setDeliveryMode(solace.MessageDeliveryModeType.DIRECT);
+      message.setDeliveryMode(solace.MessageDeliveryModeType.PERSISTENT);
       message.setBinaryAttachment(sBody);
 
-      console.debug("Publishing message " + sBody + " to topic " + this.sPublishTopic);
+      console.log("Publishing message " + sBody + " to topic " + this.sPublishTopic);
 
       /*attempt the actual publication of our message object
        *success or failure, issue a message stating the fact.
@@ -288,8 +288,9 @@ class PubSubPlusBroker {
 
       //assign the message to our callback for use by the caller.
       //We dump a more detailed format of the message to the debug log
-      oResultCallback(sMessage.getBinaryAttachment());
-      console.debug(sMessage.dump());
+      oResultCallback(sMessage );
+      console.log("logging the message received in pubsubplusbroker.js");
+      console.log(sMessage.dump());
     });
   }
 

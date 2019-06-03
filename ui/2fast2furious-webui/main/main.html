@@ -14,6 +14,17 @@
             </div>
             
         </div>
+
+        <div ng-show="showFormElement('ORDER_STATUS')">
+                <!-- Todo change to display progress bars for the different status -->
+                <h3> Your order has been placed!</h3>
+                <h3> Order ID: <strong>0123456789</strong> </h3>
+
+                <h4> We'll send you an email when you're order is ready!</h4>
+
+                <!-- <p>We apologize for not having a page to check you're order status. You see, our developer was busy roaming around San Francisco this weekend and didn't have the time to build the page! </p> -->
+
+         </div>
         
         <div ng-show="displayUserProfile">
             <div class = "row">
@@ -209,7 +220,7 @@
                                 <thead>
                                         <th scope="col">Type</th>
                                         <th scope="col">Model</th>
-                                        <th scope="col">Availability</th>
+                                        <th scope="col">Available?</th>
                                         <th scope="col">Part Cost</th>
                                         <th scope="col">Shipping Cost</th>
                                 </thead>
@@ -217,7 +228,12 @@
                                     <tr ng-repeat="part in partsEstimate.visual">
                                         <td>{{ part.type }}</td>
                                         <td>{{ part.model }}</td>
-                                        <td>{{ part.available }}</td>
+                                        <!-- <td>{{ part.available }}</td> -->
+                                        <td>
+                                            <button ng-show="part.available == true" class="btn btn-success btn-sm"><i class="fas fa-check"></i></button>
+                                            <button ng-show="part.available != true" class="btn btn-danger btn-sm"><i class="fas fa-times"></i></button>
+                                        </td>
+                                        
                                         <td>{{ part.cost }}</td>
                                         <td>{{ part.shipcost}}</td>
                                     </tr>
@@ -231,7 +247,7 @@
                                 <table class="table table-borderless table-dark table-sm">
                                     <thead>
                                             <th scope="col">Type</th>
-                                            <th scope="col">Model</th>
+                                            <th scope="col">Target Value(%)</th>
                                             <th scope="col">Availability</th>
                                             <th scope="col">Part Cost</th>
                                             <th scope="col">Shipping Cost</th>
@@ -239,8 +255,12 @@
                                     <tbody>
                                         <tr ng-repeat="part in partsEstimate.performance">
                                             <td>{{ part.type }}</td>
-                                            <td>{{ part.model }}</td>
-                                            <td>{{ part.available }}</td>
+                                            <td>{{ part.value }}</td>
+                                            <!-- <td>{{ part.available }}</td> -->
+                                            <td>
+                                                    <button ng-show="part.available == true" class="btn btn-success btn-sm"><i class="fas fa-check"></i></button>
+                                                    <button ng-show="part.available != true" class="btn btn-danger btn-sm"><i class="fas fa-times"></i></button>
+                                            </td>
                                             <td>{{ part.cost }}</td>
                                             <td>{{ part.shipcost}}</td>
                                         </tr>
@@ -250,16 +270,7 @@
 
                     </div>
 
-                    <div ng-show="showFormElement('ORDER_STATUS')">
-                            <!-- Todo change to display progress bars for the different status -->
-                            <h3> Your order has been placed!</h3>
-                            <h3> Order ID: <strong>0123456789</strong> </h3>
-
-                            <h4> We'll send you an email when you're order is ready!</h4>
-
-                            <p>We apologize for not having a page to check you're order status. You see, our developer was busy roaming around San Francisco this weekend and didn't have the time to build the page! </p>
-    
-                     </div>
+                   
         
                     <div class = "col-md-4" button ng-show="!showFormElement('ORDER_STATUS')">
 

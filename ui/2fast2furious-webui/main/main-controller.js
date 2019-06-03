@@ -14,7 +14,7 @@ myApp.controller('mainController', ['$scope', '$window', '$timeout', '$http', '$
     $scope.partsEstimate.performance = [];
     
     $scope.mode = "VIEW";               //possible values: VIEW, CONFIGURE, ORDER_ESTIMATE, ORDER_STATUS
-    $scope.stubOutSolace = true;
+    $scope.stubOutSolace = false;
     $scope.connectedToSolace = false;
 
     console.log("Mode:"+$scope.mode);
@@ -54,7 +54,9 @@ myApp.controller('mainController', ['$scope', '$window', '$timeout', '$http', '$
 
         loadUserProfileDataFromFile();
         loadPartInfoFromFile();
-        loadCannedOMSResponseFromFile();
+        if ($scope.stubOutSolace){
+            loadCannedOMSResponseFromFile();
+        }
 
         $timeout(function () {
             $scope.showLoadingProfile = false;
@@ -80,7 +82,8 @@ myApp.controller('mainController', ['$scope', '$window', '$timeout', '$http', '$
                 // lets try subscribing now!
 
                 messagingService.subscribe(subscribeCallback);
-                messagingService.onReceive(msgCallback);
+                //messagingService.onReceive(msgCallback);
+                messagingService.onReceive(estimateCallback);
             }
         };
 
@@ -91,9 +94,6 @@ myApp.controller('mainController', ['$scope', '$window', '$timeout', '$http', '$
         var msgCallback = function(message) {
             console.log("In onReceive, Received Message:" + message); 
             
-            // lets send a message on c/d
-
-            messagingService.publish("hello", publishCallback);
         };
 
         var publishCallback = function(status, message) {
@@ -226,17 +226,157 @@ myApp.controller('mainController', ['$scope', '$window', '$timeout', '$http', '$
 
         // Compose details of parts changes and send a message to Solace with the request
 
-        // We simulate it by showing a canned response
-        getPartsEstimateByCategoryOmsResponse('visual');
-        getPartsEstimateByCategoryOmsResponse('performance');
-       
+        console.log("Curernt profile");
+        console.log($scope.currentUserProfile);
+
+        var newOrderPayload = {};
+        newOrderPayload.vin = $scope.currentUserProfile.car.about.vin;
+        newOrderPayload.parts = [];
+
+        if ($scope.newOrder.selectedAcceleration != getValueFromPerformanceAttrCurrProfile('acceleration') ){
+            var part = {};
+            part.category = 'performance';
+            part.type     = 'acceleration';
+            part.value    = $scope.newOrder.selectedAcceleration;
+            newOrderPayload.parts.push(part);
+
+        }
+
+        if ($scope.newOrder.selectedDrivetrain != getValueFromPerformanceAttrCurrProfile('drivetrain') ){
+            var part = {};
+            part.category = 'performance';
+            part.type     = 'drivetrain';
+            part.value    = $scope.newOrder.selectedDrivetrain;
+            newOrderPayload.parts.push(part);
+            
+        }
+
+        if ($scope.newOrder.selectedTopspeed != getValueFromPerformanceAttrCurrProfile('topspeed') ){
+            var part = {};
+            part.category = 'performance';
+            part.type     = 'topspeed';
+            part.value    = $scope.newOrder.selectedTopspeed;
+            newOrderPayload.parts.push(part);
+        }
+
+        if($scope.newOrder.selectedHandling != getValueFromPerformanceAttrCurrProfile('handling') ){
+            var part = {};
+            part.category = 'performance';
+            part.type     = 'handling';
+            part.value    = $scope.newOrder.selectedHandling;
+            newOrderPayload.parts.push(part);
+        }
+
+        if ($scope.newOrder.selectedNitrous != getValueFromPerformanceAttrCurrProfile('nitrous' )) {
+            var part = {};
+            part.category = 'performance';
+            part.type     = 'nitrous';
+            part.value    = $scope.newOrder.selectedNitrous;
+            newOrderPayload.parts.push(part);
+        }
+
+        //visual
+
+        if ($scope.newOrder.selectedPaint != getModelFromVisualPartCurrProfile('paint') ){
+            var part = {};
+            part.category = 'visual';
+            part.type     = 'acceleration';
+            part.value    = $scope.newOrder.selectedPaint;
+            newOrderPayload.parts.push(part);
+
+        }
+
+        if ($scope.newOrder.selectedDecals != getModelFromVisualPartCurrProfile('decals') ){
+            var part = {};
+            part.category = 'visual';
+            part.type     = 'drivetrain';
+            part.value    = $scope.newOrder.selectedDecals;
+            newOrderPayload.parts.push(part);
+            
+        }
+
+        if ($scope.newOrder.selectedWheels != getModelFromVisualPartCurrProfile('wheels')  ){
+            var part = {};
+            part.category = 'visual';
+            part.type     = 'topspeed';
+            part.value    = $scope.newOrder.selectedWheels;
+            newOrderPayload.parts.push(part);
+        }
+
+        if($scope.newOrder.selectedHeadlights != getModelFromVisualPartCurrProfile('headlights') ){
+            var part = {};
+            part.category = 'visual';
+            part.type     = 'handling';
+            part.value    = $scope.newOrder.selectedHeadlights;
+            newOrderPayload.parts.push(part);
+        }
+
+        if ($scope.newOrder.selectedWindowtint != getModelFromVisualPartCurrProfile('windowtint') ){
+            var part = {};
+            part.category = 'visual';
+            part.type     = 'nitrous';
+            part.value    = $scope.newOrder.selectedWindowtint;
+            newOrderPayload.parts.push(part);
+        }
+
+        console.log("about to publish payload");
+
+        console.log(newOrderPayload);
+
+        var publishPayload = angular.toJson(newOrderPayload);
+
+        if ($scope.stubOutSolace){
+            estimateCallback();
+        }else{
+            //publish the order
+            messagingService.publish( publishPayload, publishCallback);
+        }
+          
     };
 
     
 
-    function estimateCallback(){
+    function estimateCallback(messagePayload){
 
         // this is the callback function which will be triggered when the estimate from Solace is received
+        
+        if (messagePayload != null){
+            console.log("in estimateCallback, cost estimate message received..");
+            
+            // messagePayload = messagePayload.substring(messagePayload.indexOf("{"));
+
+            // var p=messagePayload.lastIndexOf("}");
+            // console.log(p);
+
+            // //messagePayload = messagePayload.substring(p + 1);
+
+            // console.log(messagePayload);
+            // console.log(typeof(messagePayload));
+            
+            // //$scope.omsResponse = messagePayload.substring(3);
+
+            // //$scope.omsResponse = messagePayload;
+
+            // $scope.omsResponse = angular.toJson(messagePayload);
+
+            
+            if (messagePayload.getType() == solace.MessageType.TEXT)
+            {
+                var txtStr = messagePayload.getSdtContainer().getValue();
+                $scope.omsResponse = angular.fromJson(txtStr);
+                console.log(typeof ($scope.omsResponse) );
+                console.log($scope.omsResponse);
+            }
+
+
+            //console.log("oms response:");
+            //console.log($scope.omsResponse);
+
+        }
+
+        //parse message and set params
+        getPartsEstimateByCategoryOmsResponse('visual');
+        getPartsEstimateByCategoryOmsResponse('performance');
     }
 
     $scope.getModelFromVisualPartCurrProfile = function(part){
@@ -281,6 +421,9 @@ myApp.controller('mainController', ['$scope', '$window', '$timeout', '$http', '$
 
         console.log("in getPartsEstimateByCategory() ");
 
+        console.log("omsResponse:");
+        console.log($scope.omsResponse);
+
         if ($scope.omsResponse != null){
 
             var partsArr = $filter('filter')($scope.omsResponse.parts, {'category':category });
@@ -295,7 +438,7 @@ myApp.controller('mainController', ['$scope', '$window', '$timeout', '$http', '$
 
             }
     
-            console.log($scope.partsEstimate);
+            console.log("parts estimate:"+ $scope.partsEstimate);
             
         }
     
